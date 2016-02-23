@@ -1,10 +1,11 @@
 {% load staticfiles %}
-<html>
+<html ng-app="MonApplication">
 	<head>
 		<title>Django Girls blog</title>
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
 		<link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap-theme.min.css">
 		<link rel="stylesheet"  href="{% static 'css/blog.css' %}">
+		<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.4/angular.min.js"></script>
 	</head>
 	<body>
 		<div class="page-header">
@@ -20,7 +21,32 @@
 					{% block content %}
 					{% endblock %}
 				</div>
-				<div class="col-md-4">
+				<div class="col-md-4" ng-controller="LoginController" >
+					<div ng-if="connected">Bienvenu {{ username }}</div>
+					<div ng-if="!connected"> vs n'etes pas connectez</div>
+					<h1>Login</h1>
+					<form>
+						Login: <input type="text" ng-model="username" ng-model-options = "{ getterSetter }"/>
+						password: <input type="password" ng-model="password" />
+					</form>
+
+					<ul ng-controller="RepeatController">
+						<li ng-repeat="item in items">
+							{{item.name}}
+						</li>
+					</ul>
+
+					<script type="text/javascript">
+						function RepeatController($scope) {
+							$scope.items = [
+							{name: "eddy"},
+							{name: "etallaou"},
+							{name: edmond}
+							];
+						}
+						angular.module('MonApplication', [])
+							.controller('RepeatController', RepeatController);
+					</script>
 					
 				</div>
 			</div>
